@@ -4,25 +4,28 @@
 // ¿Qué string devuelve typeof en cada línea, en orden hipotético?
 // Antes del `=` (pero después de hoist de `var`): console.log(typeof f);
 // var f = function() { return 1; };
-const resultadoTipoFuncionExpresadaVar = null;
+const resultadoTipoFuncionExpresadaVar = 'undefined'; // (porque `f` es hoisted pero no su asignación, que es una función expresada)
 
 // Reemplaza null por una función flecha asignada a identificador (sin palabra function):
 // ejemplo de forma: identificador = (num) => num * ...
-let duplicarConFlecha = null;
+let duplicarConFlecha = (num) => num * 2;
 
 function devolverPrimerElemento(array) {
   // Devuelve el primer elemento de un array
   // Tu código:
+  return array[0];
 }
 
 function devolverUltimoElemento(array) {
   // Devuelve el último elemento de un array
   // Tu código:
+  return array[array.length - 1];
 }
 
 function obtenerLargoDelArray(array) {
   // Devuelve el largo de un array
   // Tu código:
+  return array.length;
 }
 
 function incrementarPorUno(array) {
@@ -30,12 +33,18 @@ function incrementarPorUno(array) {
   // Aumenta cada entero por 1
   // y devuelve el array
   // Tu código:
+  for (let i = 0; i < array.length; i++) {
+    array[i] = array[i] + 1;
+  }
+  return array;
 }
 
 function agregarItemAlFinalDelArray(array, elemento) {
   // Añade el "elemento" al final del array
   // y devuelve el array
   // Tu código:
+  array.push(elemento);
+  return array;
 }
 
 function agregarItemAlComienzoDelArray(array, elemento) {
@@ -43,6 +52,8 @@ function agregarItemAlComienzoDelArray(array, elemento) {
   // y devuelve el array
   // Pista: usa el método `.unshift`
   // Tu código:
+  array.unshift(elemento);
+  return array;
 }
 
 function dePalabrasAFrase(palabras) {
@@ -51,30 +62,54 @@ function dePalabrasAFrase(palabras) {
   // con espacios entre cada palabra
   // Ejemplo: ['Hello', 'world!'] -> 'Hello world!'
   // Tu código:
+  return palabras.join(' ');
 }
 
 function arrayContiene(array, elemento) {
   // Comprueba si el elemento existe dentro de "array"
   // Devuelve "true" si está, o "false" si no está
   // Tu código:
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === elemento) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function agregarNumeros(numeros) {
   // "array" debe ser una matriz de enteros (int/integers)
   // Suma todos los enteros y devuelve el valor
   // Tu código:
+  let suma = 0;
+  for (let i = 0; i < numeros.length; i++) {
+    suma = suma + numeros[i];
+  }
+  return suma;
 }
 
 function promedioResultadosTest(resultadosTest) {
   // "resultadosTest" debe ser una matriz de enteros (int/integers)
   // Itera (en un bucle) los elementos del array, calcula y devuelve el promedio de puntajes
   // Tu código:
+  let suma = 0;
+  for (let i = 0; i < resultadosTest.length; i++) {
+    suma = suma + resultadosTest[i];
+  }
+  return suma / resultadosTest.length;
 }
 
 function numeroMasGrande(numeros) {
   // "numeros" debe ser una matriz de enteros (int/integers)
   // Devuelve el número más grande
   // Tu código:
+  let max = numeros[0]; // Asumimos que el primer número es el máximo inicialmente
+  for (let i = 1; i < numeros.length; i++) {
+    if (numeros[i] > max) {
+      max = numeros[i];
+    }
+  }
+  return max;
 }
 
 function multiplicarArgumentos() {
@@ -82,6 +117,14 @@ function multiplicarArgumentos() {
   // Si no se pasan argumentos devuelve 0
   // Si se pasa un argumento, simplemente devuélvelo
   // Tu código:
+  if (arguments.length === 0) {
+    return 0;
+  }
+  let producto = 1;
+  for (let i = 0; i < arguments.length; i++) {
+    producto = producto * arguments[i];
+  }
+  return producto;
 }
 
 // No cambies los nombres de las funciones.
@@ -92,6 +135,14 @@ function crearGato(nombre, edad) {
   // Agrega un método (funcion) llamado "meow" que devuelva el string "Meow!"
   // Devuelve el objeto
   // Tu código:
+  let gato = {
+    nombre: nombre,
+    edad: edad,
+    meow: function () {
+      return 'Meow!';
+    },
+  };
+  return gato;
 }
 
 function agregarPropiedad(objeto, property) {
@@ -99,6 +150,8 @@ function agregarPropiedad(objeto, property) {
   // Devuelve el objeto
   // NOTA: El nombre de la propiedad no es "propiedad", el nombre es el valor del argumento llamado "property" (una cadena/string)
   // Tu código:
+  objeto[property] = null;
+  return objeto;
 }
 
 function invocarMetodo(objeto, metodo) {
@@ -106,30 +159,45 @@ function invocarMetodo(objeto, metodo) {
   // Invoca ese método
   // Nada necesita ser devuelto ("returned")
   // Tu código:
+  objeto[metodo]();
 }
 
 function multiplicarNumeroDesconocidoPorCinco(objetoMisterioso) {
   // "objetoMisterioso" tiene una propiedad llamada "numeroMisterioso"
   // Multiplica el numeroMisterioso por 5 y devuelve el producto
   // Tu código:
+  return objetoMisterioso.numeroMisterioso * 5;
 }
 
 function eliminarPropiedad(objeto, propiedad) {
   // Elimina la propiedad "propiedad" de "objeto"
   // Devuelve el objeto
   // Tu código:
+  delete objeto[propiedad]; // Elimina la propiedad del objeto
+  return objeto;
 }
 
 function nuevoUsuario(nombre, email, password) {
   // Crea un nuevo objeto con las propiedades coincidiendo con los argumentos que se pasan a la función
   // Devuelve el objeto
   // Tu código:
+  let usuario = {
+    //let es preferible aquí porque no vamos a reasignar el objeto, solo modificarlo
+    nombre: nombre,
+    email: email,
+    password: password,
+  };
+  return usuario;
 }
 
 function tieneEmail(usuario) {
   // Devuelve "true" si el usuario tiene un valor definido para la propiedad "email"
   // De lo contratio, devuelve "false"
   // Tu código:
+  if (usuario.email) {
+    return true;
+  }
+  return false;
 }
 
 function tienePropiedad(objeto, propiedad) {
@@ -137,6 +205,10 @@ function tienePropiedad(objeto, propiedad) {
   // "propiedad" es un string
   // De lo contrario, devuelve "false"
   // Tu código:
+  if (objeto[propiedad]) {
+    return true;
+  }
+  return false;
 }
 
 function verificarPassword(usuario, password) {
@@ -144,12 +216,18 @@ function verificarPassword(usuario, password) {
   // Devuelve "true" si coinciden
   // De lo contrario, devuelve "false"
   // // Tu código:
+  if (usuario.password === password) {
+    return true;
+  }
+  return false;
 }
 
 function actualizarPassword(usuario, nuevaPassword) {
   // Reemplaza la contraseña existente en el objeto "usuario" con el valor de "nuevagPassword"
   // Devuelve el objeto
   // Tu código:
+  usuario.password = nuevaPassword;
+  return usuario;
 }
 
 function agregarAmigo(usuario, nuevoAmigo) {
@@ -157,6 +235,8 @@ function agregarAmigo(usuario, nuevoAmigo) {
   // Agrega "nuevoAmigo" al final de ese array
   // Devuelve el objeto "usuario"
   // // Tu código:
+  usuario.amigos.push(nuevoAmigo);
+  return usuario;
 }
 
 function pasarUsuarioAPremium(usuarios) {
@@ -165,6 +245,10 @@ function pasarUsuarioAPremium(usuarios) {
   // Define cada propiedad "esPremium" de cada objeto como "true"
   // Devuelve el array de usuarios
   // Tu código:
+  for (let i = 0; i < usuarios.length; i++) {
+    usuarios[i].esPremium = true;
+  }
+  return usuarios;
 }
 
 function sumarLikesDeUsuario(usuario) {
@@ -174,6 +258,11 @@ function sumarLikesDeUsuario(usuario) {
   // Suma todos los likes de todos los objetos "post"
   // Devuelve la suma
   // Tu código:
+  let sumaLikes = 0;
+  for (let i = 0; i < usuario.posts.length; i++) {
+    sumaLikes = sumaLikes + usuario.posts[i].likes;
+  }
+  return sumaLikes;
 }
 
 function agregarMetodoCalculoDescuento(producto) {
@@ -186,35 +275,61 @@ function agregarMetodoCalculoDescuento(producto) {
   // producto.porcentajeDeDescuento -> 0.2 (o simplemente ".2")
   // producto.calcularPrecioDescuento() -> 20 - (20 * 0.2)
   // Tu código:
+  producto.calcularPrecioDescuento = function () {
+    let descuento = this.precio * this.porcentajeDeDescuento;
+    return this.precio - descuento;
+  };
+  return producto;
 }
 
 // Do not change any of the function names
 
 function invocarCallback(cb) {
   // Invoca al callback `cb`
+  cb();
 }
 
 function sumarArray(numeros, cb) {
   // Suma todos los números enteros (int/integers) de un array ("numeros")
   // Pasa el resultado a `cb`
   // No es necesario devolver nada
+  let suma = 0;
+  for (let i = 0; i < numeros.length; i++) {
+    suma = suma + numeros[i];
+  }
+  cb(suma);
 }
 
 function forEach(array, cb) {
   // Itera sobre la matriz "array" y pasa los valores al callback uno por uno
   // Pista: Estarás invocando a `cb` varias veces (una por cada valor en la matriz)
+  for (let i = 0; i < array.length; i++) {
+    cb(array[i]);
+  }
 }
 
 function map(array, cb) {
   // Crea un nuevo array
   // Itera sobre cada valor en "array", pásalo a `cb` y luego ubicar el valor devuelto por `cb` en un nuevo array
   // El nuevo array debe tener la misma longitud que el array del argumento
+  let array2 = [];
+  for (let i = 0; i < array.length; i++) {
+    array2.push(cb(array[i]));
+  }
+  return array2;
 }
 
 function filter(array, cb) {
   // Replica el comportamiento de Array.prototype.filter: nuevo array sólo con valores donde cb devolvió verdadero/truthy
   // Podés hacerlo con bucle sin usar el método nativo `.filter`
   // Tu código:
+  let array2 = [];
+  for (let i = 0; i < array.length; i++) {
+    if (cb(array[i])) {
+      array2.push(array[i]);
+    }
+  }
+  return array2;
 }
 
 // --- Temario ampliado: extremos pop/shift y APIs de búsqueda/unión/recorte ---
@@ -222,95 +337,132 @@ function filter(array, cb) {
 function sacarUltimoConPop(arreglo) {
   // Quitá el último elemento con `.pop()`, devolvé ese elemento mutando `arreglo`
   // Tu código:
+  return arreglo.pop(); // pop(): Elimina el último elemento del arreglo y lo devuelve
 }
 
 function sacarPrimeroConShift(arreglo) {
   // Quitá el primero con `.shift()`, devolvé ese elemento mutando `arreglo`
   // Tu código:
+  return arreglo.shift(); // shift(): Elimina el primer elemento del arreglo y lo devuelve
 }
 
 function unirConSeparador(elementos, separador) {
   // `.join(separador)` sobre el array pasado por referencia sin mutarlo
   // Tu código:
+  return elementos.join(separador); // join(): Une todos los elementos de un arreglo en una cadena, separados por el separador especificado
 }
 
 function indicePrimero(arreglo, item) {
   // `.indexOf`
   // Tu código:
+  return arreglo.indexOf(item); // indexOf(): Devuelve el primer índice en el que se puede encontrar un elemento dado en el arreglo, o -1 si no está presente
 }
 
 function indiceUltimo(arreglo, item) {
   // `.lastIndexOf`
   // Tu código:
+  return arreglo.lastIndexOf(item); // lastIndexOf(): Devuelve el último índice en el que se puede encontrar un elemento dado en el arreglo, o -1 si no está presente
 }
 
 function existeConIncludes(arreglo, item) {
   // `.includes`
   // Tu código:
+  return arreglo.includes(item); // includes(): Determina si un arreglo incluye un determinado elemento, devuelve true o false según corresponda
 }
 
 function subArregloCopia(origen, inicio, fin) {
   // `.slice` — no muta el original; devolvé una copia de la ventana sin incluir índice `fin`
   // Tu código:
+  return origen.slice(inicio, fin); // slice(): Devuelve una copia de una parte del arreglo dentro de un nuevo arreglo, desde inicio hasta fin (fin no incluido)
 }
 
 function pegarDosArreglos(arregloA, arregloB) {
   // `.concat`: devolvé un nuevo arreglo con todos los elementos de A y después B sin mutar A ni B
   // Tu código:
+  return arregloA.concat(arregloB); // concat(): Devuelve un nuevo arreglo que es la combinación de dos o más arreglos
 }
 
 function aplicarSpliceDesde(arreglo, desde, borrarCantidad, ...insertarItems) {
   // `.splice` muta `arreglo` desde el índice `desde`, borra `borrarCantidad` elementos, insertá optional items
   // Devolvé el mismo array arreglo (referencia) tras la operación
   // Tu código:
+  arreglo.splice(desde, borrarCantidad, ...insertarItems); // splice(): Cambia el contenido de un arreglo eliminando elementos existentes y/o agregando nuevos elementos
+  return arreglo;
 }
 
 // --- Reverse / Sort (mutaciones) ---
 function invertirEnLugar(arreglo) {
   // `.reverse` en el mismo arreglo; devolvé el array (referencia)
   // Tu código:
+  return arreglo.reverse(); // reverse(): Invierte el orden de los elementos de un arreglo in place (mutando el arreglo original) y devuelve el arreglo
 }
 
 function ordenarNumerosAsc(arreglo) {
   // `.sort` comparando número (a, b) => a - b; mutante; devolvé la referencia `arreglo`
   // Tu código:
+  return arreglo.sort((a, b) => a - b); // sort(): ordena los números en orden ascendente
 }
 
 function sumatorioConReduce(numeros, inicial = 0) {
   // Suma usando únicamente `.reduce(...)`
   // Tu código:
+  return numeros.reduce((acumulador, valorActual) => acumulador + valorActual, inicial); // reduce(): Aplica una función a un acumulador y a cada valor de un arreglo (de izquierda a derecha) para reducirlo a un único valor
 }
 
 function agruparPorCampoReduce(listaObjetos, nombreCampo) {
   // Usá sólo `.reduce`: devolvé objeto cuyas claves son valores de esa propiedad y valores arrays de elementos
   // Tu código:
+  return listaObjetos.reduce((acumulador, item) => {
+    const clave = item[nombreCampo];
+    if (!acumulador[clave]) {
+      acumulador[clave] = [];
+    }
+    acumulador[clave].push(item);
+    return acumulador;
+  }, {});
 }
 
 function agruparPorCampoObjectGroupBy(listaObjetos, nombreCampo) {
   // Usá Object.groupBy (requiere Node 22+ según este repo). Función clasificadora: (item) => item[nombreCampo]
   // Tu código:
+  return Object.groupBy(listaObjetos, (item) => item[nombreCampo]); // groupBy(): Agrupa los elementos de un arreglo en un objeto según una función clasificadora
 }
 
 function encadenarOperacionesSinAnidar(valorInicial, funcionesTransform) {
   // `funcionesTransform` es un array de funciones síncronas (f1,f2,...).
   // Ejecutalas en orden solo con bucle/for (sin anidar llamadas dentro de callbacks).
   // Tu código:
+  let resultado = valorInicial;
+  for (let i = 0; i < funcionesTransform.length; i++) {
+    resultado = funcionesTransform[i](resultado);
+  }
+  return resultado;
 }
 
 function objetoNombreMayuscConFlechaAnidada(nombre) {
   // Devolvé `{ nombre }` con método `enMayuscMedianteFlecha()` (function regular) dentro del cual declares una función flecha
   // que usa el `this` léxico del método y devuelve `nombre` en MAYÚSCULAS.
   // Tu código:
+  return {
+    nombre: nombre,
+    enMayuscMedianteFlecha: function () {
+      const convertirMayusculas = () => this.nombre.toUpperCase(); // Función flecha que usa el `this` léxico del método
+      return convertirMayusculas();
+    },
+  };
 }
 
 function establecerValorMismaReferencia(objetoConstanteRef, propiedadString, nuevoValor) {
   // objetoConstanteRef[propiedadString] = nuevoValor; mismo objeto
   // Tu código:
+  objetoConstanteRef[propiedadString] = nuevoValor; // Modifica la propiedad del objeto sin cambiar la referencia del objeto
+  return objetoConstanteRef; // Devuelve el mismo objeto con la propiedad modificada
 }
 
 const sumarMedianteExpresionNombrada = function nombradoInternamente(a, b) {
   // Función mediante expresión con nombre interno (no uses `function sumarDeclarada(...) {}` declarada como statement suelto)
   // Tu código:
+  return a + b;
 };
 
 // No modificar nada debajo de esta línea
